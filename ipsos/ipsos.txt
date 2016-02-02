@@ -1,0 +1,404 @@
+CREATE TABLE land(
+id INT IDENTITY,
+land varchar (255) UNIQUE,
+);
+
+
+
+CREATE TABLE medarbejder(
+id INT IDENTITY,
+medarbejder varchar(255),
+email varchar(255) UNIQUE,
+land varchar(255),
+foreign key (land) references land(land) on delete cascade,
+
+);
+
+
+
+//////OR wihtout independent land table  && REMEBER TO CHANGE the names with 
+
+//////Make table
+
+CREATE TABLE medarbejder(
+id INT IDENTITY,
+medarbejder varchar(255),
+email varchar(255) UNIQUE,
+land varchar(255)
+
+);
+
+
+
+CREATE TABLE afdeling (
+id INT IDENTITY,
+afdeling varchar(255) UNIQUE,
+);
+
+
+
+CREATE TABLE medarbejdersafdeling(
+id INT IDENTITY,
+email varchar(255), 
+afdeling int ,
+foreign key (email) references medarbejder(email) on delete cascade,
+foreign key (afdeling) references afdeling(id) on delete cascade,
+);
+
+CREATE TABLE kategori (
+id INT IDENTITY,
+kategori varchar(255) UNIQUE,
+);
+
+
+CREATE TABLE kompetence (
+id INT IDENTITY,
+kompetence varchar(255) UNIQUE,
+kategori INT,
+foreign key (kategori) references kategori(id) on delete cascade,
+);
+
+
+CREATE TABLE medarbejderkompetence(
+id INT IDENTITY,
+email varchar(255) NOT NULL,
+kompetence INT NOT NULL,
+
+
+foreign key (email) references medarbejder(email) on delete cascade,
+foreign key (kompetence) references kompetence(id) on delete cascade
+);
+
+////// this sets the constriang unique as email + kompetence to avoid to insert the same kompetence twice.
+
+
+Alter table medarbejderkompetence
+add constraint mkompetence UNIQUE (email, kompetence);
+
+
+///// insert afdeling
+
+INSERT INTO "PUBLIC"."AFDELING"
+( "AFDELING" )
+VALUES ('Ledelsen');
+INSERT INTO "PUBLIC"."AFDELING"
+( "AFDELING" )
+VALUES ('Healthcare');
+INSERT INTO "PUBLIC"."AFDELING"
+( "AFDELING" )
+VALUES ('Det kvalitative team');
+INSERT INTO "PUBLIC"."AFDELING"
+( "AFDELING" )
+VALUES ('Det kvantitative team');
+INSERT INTO "PUBLIC"."AFDELING"
+( "AFDELING" )
+VALUES ('Administration');
+
+
+///// insert kategori
+
+
+INSERT INTO "PUBLIC"."KATEGORI"
+( "KATEGORI" )
+VALUES ( 'Operations');
+INSERT INTO "PUBLIC"."KATEGORI"
+( "KATEGORI" )
+VALUES ( 'Kvalitativ');
+INSERT INTO "PUBLIC"."KATEGORI"
+( "KATEGORI" )
+VALUES ( 'Kvantitativ');
+
+
+///// insert kompetence
+
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI")
+VALUES ( 'Java', '0');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI")
+VALUES ( 'C#', '0');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'PHP', '0');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'Ruby', '0');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'Fokusgrupper', '1');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'Dybdeinterview', '1');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'Regressions-anlyse', '2');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'Statistik', '2');
+
+INSERT INTO "PUBLIC"."KOMPETENCE"
+( "KOMPETENCE", "KATEGORI") 
+VALUES ( 'Rapport-skrivning', '2');
+
+
+
+
+///// insert medarbejder
+
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDER"
+( "MEDARBEJDER", "EMAIL", "LAND")
+VALUES ( 'Klaus Friis Mikkelsen', 'klaus.mikkelsen@ipsos.com', 'Danmark');
+INSERT INTO "PUBLIC"."MEDARBEJDER"
+( "MEDARBEJDER", "EMAIL", "LAND")
+VALUES ( 'Maria Pierrou', 'maria.pierrou@ipsos.com', 'Danmark');
+INSERT INTO "PUBLIC"."MEDARBEJDER"
+( "MEDARBEJDER", "EMAIL", "LAND")
+VALUES ( 'Søren Esben Hansen', 'soren.hansen@ipsos.com', 'Danmark');
+INSERT INTO "PUBLIC"."MEDARBEJDER"
+( "MEDARBEJDER", "EMAIL", "LAND")
+VALUES ( 'Søren Bertram Andreasen', 'soren.andreasen@ipsos.com', 'Danmark');
+
+//////// INSERT MEDARBEJDER AFDELING
+
+INSERT INTO "PUBLIC"."MEDARBEJDERSAFDELING"
+( "EMAIL", "AFDELING" )
+VALUES ('klaus.mikkelsen@ipsos.com', '0');
+
+INSERT INTO "PUBLIC"."MEDARBEJDERSAFDELING"
+( "EMAIL", "AFDELING" )
+VALUES ('maria.pierrou@ipsos.com', '1');
+
+INSERT INTO "PUBLIC"."MEDARBEJDERSAFDELING"
+( "EMAIL", "AFDELING" )
+VALUES ('soren.hansen@ipsos.com', '2');
+
+INSERT INTO "PUBLIC"."MEDARBEJDERSAFDELING"
+( "EMAIL", "AFDELING" )
+VALUES ('soren.andreasen@ipsos.com', '2');
+
+////////
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('klaus.mikkelsen@ipsos.com', '5');
+
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('klaus.mikkelsen@ipsos.com', '4');
+
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('maria.pierrou@ipsos.com', '5');
+
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('maria.pierrou@ipsos.com', '6');
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.hansen@ipsos.com', '5');
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.hansen@ipsos.com', '0');
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.hansen@ipsos.com', '7');
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.andreasen@ipsos.com', '5');
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.andreasen@ipsos.com', '1');
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.andreasen@ipsos.com', '6');
+
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.andreasen@ipsos.com', '8');
+
+///// this will give you error because it exists in the table.
+
+INSERT INTO "PUBLIC"."MEDARBEJDERKOMPETENCE"
+( "EMAIL", "KOMPETENCE" )
+VALUES ('soren.hansen@ipsos.com', '5');
+
+
+
+////////
+Update SQL STRING
+
+
+UPDATE MEDARBEJDER SET medarbejder='Søren Esben Hansen', email='soren.hansen@ipsos.com', land='Norge' WHERE id = '2'
+
+UPDATE "PUBLIC"."KATEGORI" SET KATEGORI = ?
+WHERE id= ?
+
+UPDATE "PUBLIC"."KOMPETENCE" SET KOMPETENCE = ?
+WHERE id= ?
+
+UPDATE MEDARBEJDER SET MEDARBEJDER = ? 
+WHERE ID = ?
+
+UPDATE MEDARBEJDER SET medarbejder = ?, email = ?, land = ? WHERE id = ? 
+
+UPDATE "PUBLIC"."MEDARBEJDERKOMPETENCE" SET kompetence='1'
+where id = '0'
+
+///////
+
+Select everything on medarbejder + afdeling
+
+SELECT * FROM "PUBLIC"."MEDARBEJDER" INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+inner join afdeling on medarbejdersafdeling.afdeling = afdeling.id;
+
+
+/////
+To see all the information of each medarbejder
+
+SELECT medarbejder, email, land, afdeling.afdeling, kompetence.kompetence
+FROM "PUBLIC"."MEDARBEJDER" INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+inner join afdeling on medarbejdersafdeling.afdeling = afdeling.id
+inner join medarbejderkompetence on medarbejderkompetence.email= medarbejder.email
+inner join kompetence on medarbejderkompetence.kompetence = kompetence.id
+inner join kategori on kompetence.kategori = kategori.id
+order by medarbejder;
+
+////////
+To see the medarbejder with email address
+
+SELECT medarbejder, email, land, afdeling, medarbejderkompetence.kompetence
+FROM ("PUBLIC"."MEDARBEJDER" 
+INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+) inner join medarbejderkompetence on medarbejderkompetence.email= medarbejder.email where email='klaus.mikkelsen@ipsos.com'
+
+
+
+
+SELECT medarbejder, email, land, afdeling.afdeling, kompetence.kompetence
+FROM "PUBLIC"."MEDARBEJDER" 
+INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+inner join afdeling on medarbejdersafdeling.afdeling = afdeling.id
+ inner join medarbejderkompetence on medarbejderkompetence.email= medarbejder.email 
+inner join kompetence on medarbejderkompetence.kompetence = kompetence.id
+inner join kategori on kompetence.kategori = kategori.id
+where email='klaus.mikkelsen@ipsos.com'
+
+//søgeNavn
+SELECT medarbejder, email, land, afdeling.afdeling, kompetence.kompetence
+FROM "PUBLIC"."MEDARBEJDER" 
+INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+inner join afdeling on medarbejdersafdeling.afdeling = afdeling.id
+ inner join medarbejderkompetence on medarbejderkompetence.email= medarbejder.email 
+inner join kompetence on medarbejderkompetence.kompetence = kompetence.id
+inner join kategori on kompetence.kategori = kategori.id
+where medarbejder like '%klaus%'
+
+
+
+////// 
+Medarbejder with id
+
+
+SELECT medarbejder_navn, email, land, afdeling, medarbejderkompetence.kompetence
+FROM ("PUBLIC"."MEDARBEJDER" 
+INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+) inner join medarbejderkompetence on medarbejderkompetence.email= medarbejder.email where medarbejder.id='0'
+
+
+SELECT id, email, kompetence.kompetence, kategori.kategori, kompetence.kompetence FROM "PUBLIC"."MEDARBEJDERKOMPETENCE"
+inner join kompetence on kompetence.id = medarbejderkompetence.kompetence
+inner join kategori on kategori.id = kompetence.kategori;
+
+
+SELECT kategori, kompetence.kompetence FROM "PUBLIC"."KATEGORI" 
+INNER JOIN KOMPETENCE ON KOMPETENCE.KATEGORI=KATEGORI.ID
+WHERE kompetence='Java'
+
+
+
+
+SELECT kategori.id, kategori.kategori, id, kompetence FROM kompetence 
+INNER JOIN kategori ON kompetence.kategori=kategori.id where id = 2
+
+
+
+SELECT id, email, kompetence.kompetence, kategori.kategori, kompetence.kompetence FROM "PUBLIC"."MEDARBEJDERKOMPETENCE"
+inner join kompetence on kompetence.id = medarbejderkompetence.kompetence
+inner join kategori on kategori.id = kompetence.kategori;
+
+
+SELECT id, email, kompetence.id, kategori.kategori, kompetence.kompetence FROM "PUBLIC"."MEDARBEJDERKOMPETENCE"
+inner join kompetence on kompetence.id = medarbejderkompetence.kompetence
+inner join kategori on kategori.id = kompetence.kategori
+where kompetence.kompetence = 'Java';
+
+
+
+//////// not working haha
+
+
+SELECT medarbejder, email, land, medarbejdersafdeling.afdeling, kategori.kategori, medarbejderkompetence.kompetence
+FROM((("PUBLIC"."MEDARBEJDER" INNER JOIN medarbejdersafdeling on medarbjedersafdeling.medarbejder=medarbjeder.email)
+INNER JOIN medarbejderkompetence on medarbejder.email = medarbejderkompetence.email)
+INNER JOIN kategori ON kategori.kategori = kompetence.kategori
+
+)
+
+
+SELECT medarbejder, email, land, medarbejdersafdeling.afdeling, kategori.kategori, medarbejderkompetence.kompetence
+FROM((("PUBLIC"."MEDARBEJDER" inner join afdeling on medarbejdersafdeling.afdeling = afdeling.afdeling ) 
+inner join kompetence on medarbejderkompetence.email = kompetence.email) 
+inner join kategori on kategori.kategori = kompetence.kategori);
+
+
+
+
+SELECT medarbejder, email, afdeling.afdeling,kategori.kategori,kompetence.kompetence 
+FROM ((("PUBLIC"."MEDARBEJDER" inner join afdeling on medarbejder.email=afdeling.email ) 
+inner join kompetence on medarbejder.email = kompetence.email) 
+inner join kategori on kategori.kategori = kompetence.kategori);
+
+
+SELECT medarbejder, email, afdeling.afdeling,kategori.kategori,kompetence.kompetence 
+FROM ((("PUBLIC"."MEDARBEJDER" inner join afdeling on medarbejder.email=afdeling.email ) 
+inner join kompetence on medarbejder.email = kompetence.email) 
+inner join kategori on kategori.kategori = kompetence.kategori) 
+where kompetence.kompetence='java';
+
+
+SELECT medarbejder, email, afdeling.afdeling,kategori.kategori,kompetence.kompetence 
+FROM ((("PUBLIC"."MEDARBEJDER" inner join afdeling on medarbejder.email=afdeling.email ) 
+inner join kompetence on medarbejder.email = kompetence.email) 
+inner join kategori on kategori.kategori = kompetence.kategori) 
+where ( (kompetence.kompetence='java') or (kompetence.kompetence='c#' ))
+
+
+
+
+

@@ -1,0 +1,6 @@
+SELECT medarbejder, email, land, afdeling.afdeling, kompetence.kompetence
+FROM "PUBLIC"."MEDARBEJDER" INNER JOIN MEDARBEJDERSAFDELING ON MEDARBEJDER.EMAIL = MEDARBEJDERSAFDELING.EMAIL
+inner join afdeling on medarbejdersafdeling.afdeling = afdeling.id
+inner join medarbejderkompetence on medarbejderkompetence.email= medarbejder.email
+inner join kompetence on medarbejderkompetence.kompetence = kompetence.id
+ORDER BY medarbejder
