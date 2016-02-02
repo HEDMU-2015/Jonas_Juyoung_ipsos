@@ -28,8 +28,13 @@ public class MainTest {
 
 	public static void main(String[] args) throws Exception {
 		
+		
+		
+		
 		//DataAccess dataAccess = new DataAccessImpl();
 		IESController ies = new IESControllerImpl();
+		
+		System.out.println("GITHUB TRY"+ies.præsenterKategoriListe());
 
 		
 		//MedarbejderMedKompetenceListeImpl mck = new MedarbejderMedKompetenceListeImpl();
