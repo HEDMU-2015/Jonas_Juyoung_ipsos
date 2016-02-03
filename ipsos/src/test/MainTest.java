@@ -29,8 +29,6 @@ public class MainTest {
 	public static void main(String[] args) throws Exception {
 		
 		
-		
-		
 		//DataAccess dataAccess = new DataAccessImpl();
 		IESController ies = new IESControllerImpl();
 		
