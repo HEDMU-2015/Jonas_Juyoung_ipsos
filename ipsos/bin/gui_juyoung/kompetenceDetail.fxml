@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_juyoung.KompetenceDetailsController">
+   <children>
+      <TableView fx:id="kompetenceView" layoutX="55.0" layoutY="81.0" prefHeight="271.0" prefWidth="268.0">
+        <columns>
+          <TableColumn fx:id="categoryColumn" editable="false" prefWidth="100.0" text="Category" />
+          <TableColumn fx:id="skillColumn" prefWidth="167.0" text="Skill" />
+        </columns>
+      </TableView>
+      <Button layoutX="347.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleEditKompetence" prefHeight="33.0" prefWidth="70.0" text="Edit" />
+      <Button layoutX="432.0" layoutY="319.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="70.0" text="Add" />
+      <Button layoutX="516.0" layoutY="319.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="70.0" text="Delete" />
+   </children>
+</AnchorPane>

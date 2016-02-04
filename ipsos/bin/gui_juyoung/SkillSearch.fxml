@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_juyoung.SkillSearchController">
+	<children>
+		<GridPane layoutX="378.0" layoutY="121.0" prefHeight="77.0" prefWidth="412.0">
+			<children>
+				<Label prefHeight="17.0" prefWidth="113.0" text="Selected skill:" />
+				<Label prefHeight="17.0" prefWidth="113.0" text="Search for :" GridPane.rowIndex="1">
+					<font>
+						<Font name="System" size="12.0" />
+					</font>
+				</Label>
+				<Label fx:id="skillsL" prefHeight="36.0" prefWidth="252.0" GridPane.columnIndex="1" />
+            <TextField fx:id="text" editable="false" prefHeight="26.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+			</children>
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="96.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="316.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+		</GridPane>
+		<Label layoutX="55.0" layoutY="28.0" prefHeight="17.0" prefWidth="260.0" text="Ipsos Employee System" textAlignment="CENTER">
+			<font>
+				<Font name="System" size="18.0" />
+			</font>
+		</Label>
+		<ImageView fitHeight="112.0" fitWidth="112.0" layoutX="676.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/ipsos_logo.jpg" />
+			</image>
+		</ImageView>
+		<Button layoutX="560.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleSøgKontakt" prefHeight="43.0" prefWidth="96.0" text="Name search" />
+		<Button layoutX="447.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleCsøg" prefHeight="43.0" prefWidth="96.0" text="Clear search" />
+		<TableView fx:id="outputfelt2" layoutX="55.0" layoutY="117.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="292.0" AnchorPane.bottomAnchor="114.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="643.0" AnchorPane.topAnchor="117.0">
+			<columns>
+				<TableColumn fx:id="categoryColumn" editable="false" minWidth="0.0" prefWidth="147.0" style="-fx-alignment: center;" text="Category" />
+            <TableColumn fx:id="skillColumn" editable="false" minWidth="0.0" prefWidth="146.0" style="-fx-alignment: center;" text="Skill" />
+				
+			</columns>
+		</TableView>
+		<TableView fx:id="outputfelt" layoutX="377.0" layoutY="198.0" prefHeight="174.0" prefWidth="412.0">
+			<columns>
+				<TableColumn fx:id="nameColumn" editable="false" prefWidth="119.0" style="-fx-alignment: center;" text="Name" />
+				<TableColumn fx:id="skillsColumn" editable="false" prefWidth="270.0" style="-fx-alignment: center;" text="Department" />
+            <TableColumn fx:id="numberOfMatchColumn" editable="false" prefWidth="270.0" style="-fx-alignment: center;" text="Number of Matches" />
+			</columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+		</TableView>
+      <Button layoutX="333.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleSøgKompetence" prefHeight="43.0" prefWidth="96.0" text="Search" />
+	</children>
+</AnchorPane>
