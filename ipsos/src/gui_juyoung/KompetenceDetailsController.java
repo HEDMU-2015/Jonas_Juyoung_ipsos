@@ -27,7 +27,12 @@ public class KompetenceDetailsController {
 	private TableColumn<KompetenceWrapper, String> categoryColumn;
 	@FXML
 	private TableColumn<KompetenceWrapper, String> skillColumn;
+	
+	@FXML
+	private TreeView <String> kompetenceTreeView = new TreeView();
 
+	
+	
 
 	private Stage dialogStage;
 	private boolean okClicked;
