@@ -188,4 +188,9 @@ public class MainApp2 extends Application {
 				
 	}
 	
+	public void refreshDialog(){
+		showKompetenceDialog(kompetenceData);
+	}
+	
+	
 }

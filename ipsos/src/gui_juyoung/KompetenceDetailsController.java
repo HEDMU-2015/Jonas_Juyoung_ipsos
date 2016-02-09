@@ -2,6 +2,7 @@ package gui_juyoung;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import domain.Kompetence;
 import domain.KompetenceImpl;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
@@ -60,6 +62,8 @@ public class KompetenceDetailsController {
 
 		getTreeView(IES_CI.præsenterKompetenceListe());
 		
+		kompetenceTreeView.getSelectionModel().getSelectedItem();
+		
 
 	}
 
@@ -92,18 +96,47 @@ public class KompetenceDetailsController {
 			valgtKompetence.setKategori_id(k.getKategori_id());
 			valgtKompetence.setKompetence_navn(k.getKompetence_navn());
 		}
+		
+		
+		TextInputDialog dialog = new TextInputDialog(valgtKompetence.getKompetence_navn());
+		dialog.setTitle("Edit Skill Name");
+		dialog.setHeaderText("Change the name of Skill");
+		dialog.setContentText("Please enter skill name:");
 
-		if(IES_CI.gemRettetKompetence(valgtKompetence)){
-			errorMessage = "Gemt!";
-			alert = new Alert(AlertType.INFORMATION);
-			alert.initOwner(dialogStage);
-			alert.setTitle("Ret Kontakt");
-			alert.setHeaderText("Ændringerne blev gemt.");
-			alert.setContentText(errorMessage);
-			alert.showAndWait();
+		// Traditional way to get the response value.
+		Optional<String> result = dialog.showAndWait();
+		
+		if (result.isPresent()){
+		    System.out.println("Your name: " + result.get());
+		    valgtKompetence.setKompetence_navn(result.get());
+		    System.out.println(valgtKompetence);
+		    if(IES_CI.gemRettetKompetence(valgtKompetence)){
+				errorMessage = "Gemt!";
+				alert = new Alert(AlertType.INFORMATION);
+				alert.initOwner(dialogStage);
+				alert.setTitle("Ret Kontakt");
+				alert.setHeaderText("Ændringerne blev gemt.");
+				alert.setContentText(errorMessage);
+				alert.showAndWait();
+			}
+			okClicked = true;
+			
+			mainApp.refresh(); //works
+			mainApp.refreshDialog(); //not working yet
+			kompetenceView.refresh();
+
+			//mainApp.getKompetenceData();
+		
 		}
-		okClicked = true;
+		
+				
 
+		// The Java 8 way to get the response value (with lambda expression).
+		//result.ifPresent(name -> System.out.println("Your name: " + name));
+
+		
+		
+		
 	}
 
 			
@@ -138,6 +171,9 @@ public class KompetenceDetailsController {
 		
 	}	
 
+	
+	
+	
 }
 
 
