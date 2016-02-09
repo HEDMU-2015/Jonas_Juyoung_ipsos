@@ -158,7 +158,7 @@ public class MainApp2 extends Application {
 	}
 
 	
-	public boolean showKompetenceDialog (Kompetence kompetence){
+	public boolean showKompetenceDialog (ObservableList<Kompetence> observableList){
 		
 		try {
 		FXMLLoader loader = new FXMLLoader();
@@ -174,6 +174,7 @@ public class MainApp2 extends Application {
 		
 		KompetenceDetailsController controller = loader.getController();
 		controller.setDialogStage(dialogStage);
+		controller.setMainApp(this);
 		
 		dialogStage.showAndWait();
 		

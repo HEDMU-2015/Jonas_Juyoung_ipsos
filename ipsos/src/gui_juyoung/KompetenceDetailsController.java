@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -28,10 +30,7 @@ public class KompetenceDetailsController {
 	@FXML
 	private TableColumn<KompetenceWrapper, String> skillColumn;
 	
-	@FXML
-	private TreeView <String> kompetenceTreeView = new TreeView();
-
-	
+		
 	
 
 	private Stage dialogStage;
@@ -39,6 +38,9 @@ public class KompetenceDetailsController {
 	private IESController IES_CI = new IESControllerImpl();
 	private Alert alert = new Alert(null);
 	private String errorMessage = "";
+
+	@FXML
+	private TreeView <String> kompetenceTreeView = new TreeView <String>();
 
 
 	public KompetenceDetailsController(){
@@ -54,6 +56,7 @@ public class KompetenceDetailsController {
 		skillColumn.setCellValueFactory(new PropertyValueFactory<KompetenceWrapper, String>("kompetence_navn"));
 		categoryColumn.setCellValueFactory(new PropertyValueFactory<KompetenceWrapper, String>("kategori"));
 
+		getTreeView();
 
 	}
 
@@ -100,7 +103,40 @@ public class KompetenceDetailsController {
 
 	}
 
+	
+	private void getTreeView (){
+		TreeItem<String> rootItem = new TreeItem<>("Skill");
+		rootItem.setExpanded(true);
+		
+		for (Kompetence k : IES_CI.præsenterKompetenceListe()){
+			TreeItem<String> kompetence = new TreeItem<String>(k.getKompetence_navn());
+			boolean found = false;
+			
+			for(TreeItem<String> kategori : rootItem.getChildren()){
+				if(kategori.getValue().contentEquals(k.getKategori())){
+					kategori.getChildren().add(kompetence);
+					found = true;
+					break;
+					}
+				}
+			
+			if(!found){
+				TreeItem<String> kategori = new TreeItem<String>(
+						k.getKategori()
+						);
+				rootItem.getChildren().add(kategori);
+				kategori.getChildren().add(kompetence);
+			}
+	
+		}
+		
+		
+				
+		
+	}
 
+	
+	
 
 }
 
