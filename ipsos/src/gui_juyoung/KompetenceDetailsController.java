@@ -50,13 +50,16 @@ public class KompetenceDetailsController {
 
 	@FXML
 	private void initialize() {
+		
+		//kompetenceTreeView.getSelectionModel().getSelectedItem();
 
 		kompetenceView.getSelectionModel().getSelectedItem();
 
 		skillColumn.setCellValueFactory(new PropertyValueFactory<KompetenceWrapper, String>("kompetence_navn"));
 		categoryColumn.setCellValueFactory(new PropertyValueFactory<KompetenceWrapper, String>("kategori"));
 
-		getTreeView();
+		getTreeView(IES_CI.præsenterKompetenceListe());
+		
 
 	}
 
@@ -103,12 +106,13 @@ public class KompetenceDetailsController {
 
 	}
 
-	
-	private void getTreeView (){
+			
+		
+	private void getTreeView (List<Kompetence> kompetenceList){
 		TreeItem<String> rootItem = new TreeItem<>("Skill");
 		rootItem.setExpanded(true);
 		
-		for (Kompetence k : IES_CI.præsenterKompetenceListe()){
+		for (Kompetence k : kompetenceList){
 			TreeItem<String> kompetence = new TreeItem<String>(k.getKompetence_navn());
 			boolean found = false;
 			
@@ -128,15 +132,11 @@ public class KompetenceDetailsController {
 				kategori.getChildren().add(kompetence);
 			}
 	
-		}
-		
-		
-				
-		
-	}
+			kompetenceTreeView.setRoot(rootItem);
 
-	
-	
+		}			
+		
+	}	
 
 }
 
